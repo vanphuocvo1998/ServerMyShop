@@ -1,0 +1,45 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using ServerMyShop.Helper;
+using ServerMyShop.Models;
+using ServerMyShop.Services;
+namespace ServerMyShop.Controllers
+{
+    [Microsoft.AspNetCore.Cors.EnableCors("CorsApi")]
+    [Route("api/[controller]")]
+    [ApiController]
+    public class UserController : ControllerBase
+    {
+        UsersRepository _UsersRepository = new UsersRepository();
+
+        [HttpPost("Login")]
+        public Users Login([FromForm]Users user)
+        {
+            var _user = _UsersRepository.Login(user.Gmail, user.Password);
+
+            if (_user != null)
+            {
+                if (SessionHelper.GetObjectFromJson<List<Login>>(HttpContext.Session, "login") == null)
+                {
+                    SessionHelper.SetObjectAsJson(HttpContext.Session, "login", _user);
+                }
+                return _user;
+            }
+            else
+            {
+                return null;
+            }
+            
+        }
+        [HttpPost("Add")]
+        public IActionResult AddUser([FromForm]Users users)
+        {
+            _UsersRepository.Add(users);
+            return Ok("success");
+        }
+    }
+}
