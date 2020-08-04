@@ -12,15 +12,9 @@ namespace ServerMyShop.Services
     {
         BookShopContext db = new BookShopContext();
 
-        public void Add(Users user)
-        {
-            db.Users.Add(user);
-            db.SaveChanges();
-        }
-
         public bool CheckExistUser(string gmail, string phone)
         {
-            if (db.Users.SingleOrDefault(n => n.Gmail == gmail && n.Phone == phone)==null)
+            if (db.Users.SingleOrDefault(n => n.Gmail == gmail && n.Phone == phone) == null)
             {
                 return true;
             }
@@ -28,8 +22,19 @@ namespace ServerMyShop.Services
             {
                 return false;
             }
-          
+
         }
+
+        public void Add(Users user)
+        {
+            bool check = CheckExistUser(user.Gmail, user.Phone);
+            if(check==true)
+            {
+                db.Users.Add(user);
+                db.SaveChanges();
+            }
+        }
+
 
         public Users GetByGmail(string gmail)
         {

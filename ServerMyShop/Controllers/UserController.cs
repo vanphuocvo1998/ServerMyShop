@@ -47,7 +47,7 @@ namespace ServerMyShop.Controllers
             }
             else
             {
-                return null;
+                return user;
             }
            
         }
