@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using ServerMyShop.Models;
 using ServerMyShop.Services;
 
+
 namespace ServerMyShop.Controllers
 {
     [Microsoft.AspNetCore.Cors.EnableCors("CorsApi")]
@@ -15,11 +16,12 @@ namespace ServerMyShop.Controllers
     public class BilldetailsController : ControllerBase
     {
         BilldetailsRepository _BilldetailsRepository = new BilldetailsRepository();
-        [HttpPost("Add")]
-        public IActionResult AddBill([FromForm]Billdetails billdetail)
+
+        [HttpPost("AddBilldetail")]
+        public Billdetails AddBilldetail([FromForm]Billdetails billdetail)
         {
             _BilldetailsRepository.Add(billdetail);
-            return Ok("success");
+            return billdetail;
         }
     }
 }

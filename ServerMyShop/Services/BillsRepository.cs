@@ -16,5 +16,10 @@ namespace ServerMyShop.Services
             db.Bills.Add(bill);
             db.SaveChanges();
         }
+
+        public Bills GetById(int id)
+        {
+            return db.Bills.SingleOrDefault(n => n.Id == id);
+        }
     }
 }

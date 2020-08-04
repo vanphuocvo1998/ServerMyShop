@@ -18,6 +18,29 @@ namespace ServerMyShop.Services
             db.SaveChanges();
         }
 
+        public bool CheckExistUser(string gmail, string phone)
+        {
+            if (db.Users.SingleOrDefault(n => n.Gmail == gmail && n.Phone == phone)==null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+          
+        }
+
+        public Users GetByGmail(string gmail)
+        {
+            return db.Users.FirstOrDefault(n=>n.Gmail==gmail);
+        }
+
+        public Users GetByPhone(string phone)
+        {
+            return db.Users.SingleOrDefault(n => n.Phone == phone);
+        }
+
         public Users Login(string gmail, string password)
         {
             var user = db.Users.SingleOrDefault(n => n.Gmail==gmail && n.Password == password);

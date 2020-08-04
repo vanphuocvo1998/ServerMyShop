@@ -15,7 +15,7 @@ namespace ServerMyShop.Controllers
     public class UserController : ControllerBase
     {
         UsersRepository _UsersRepository = new UsersRepository();
-
+      
         [HttpPost("Login")]
         public Users Login([FromForm]Users user)
         {
@@ -23,10 +23,10 @@ namespace ServerMyShop.Controllers
 
             if (_user != null)
             {
-                if (SessionHelper.GetObjectFromJson<List<Login>>(HttpContext.Session, "login") == null)
-                {
-                    SessionHelper.SetObjectAsJson(HttpContext.Session, "login", _user);
-                }
+               // if (SessionHelper.GetObjectFromJson<List<Login>>(HttpContext.Session, "login") == null)
+             //   {
+                //    SessionHelper.SetObjectAsJson(HttpContext.Session, "login", _user);
+             //   }
                 return _user;
             }
             else
@@ -35,11 +35,21 @@ namespace ServerMyShop.Controllers
             }
             
         }
-        [HttpPost("Add")]
-        public IActionResult AddUser([FromForm]Users users)
+     
+        [HttpPost("AddUser")]
+        public Users AddUser([FromForm]Users user)
         {
-            _UsersRepository.Add(users);
-            return Ok("success");
+            bool check = _UsersRepository.CheckExistUser(user.Gmail, user.Password);
+            if(check==true)
+            {
+                _UsersRepository.Add(user);
+                return user;
+            }
+            else
+            {
+                return null;
+            }
+           
         }
     }
 }

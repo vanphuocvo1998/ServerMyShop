@@ -15,6 +15,7 @@ namespace ServerMyShop.Services
         public void Add(Billdetails billdetail)
         {
             db.Billdetails.Add(billdetail);
+            db.SaveChanges();
         }
     }
 }

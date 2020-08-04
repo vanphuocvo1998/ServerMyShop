@@ -15,11 +15,16 @@ namespace ServerMyShop.Controllers
     public class BillsController : ControllerBase
     {
         BillsRepository _BillsRepository = new BillsRepository();
-        [HttpPost("Add")]
-        public IActionResult AddBill([FromForm]Bills bill)
+        UsersRepository _UsersRepository = new UsersRepository();
+
+        [HttpPost("AddBill")]
+        public Bills AddBill([FromForm]Bills bill)
         {
+            var user = _UsersRepository.GetByGmail(bill.Gmail);
+            if (user != null)
+                bill.UserId = user.Id;
             _BillsRepository.Add(bill);
-            return Ok("success");
+            return bill;
         }
     }
 }

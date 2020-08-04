@@ -10,6 +10,12 @@ namespace ServerMyShop.Interfaces
     {
         Users Login(string gmail, string password);
         void Add(Users user);
+
+        Users GetByGmail(string gmail);
+
+        Users GetByPhone(string phone);
+
+        bool CheckExistUser(string gmail, string phone);
         
     }
 }
