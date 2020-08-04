@@ -12,7 +12,7 @@ namespace ServerMyShop.Services
     {
         BookShopContext db = new BookShopContext();
 
-        //kiểm tra user đã có trong database chua
+        //kiểm tra user đã có trong database chưa
         public bool CheckExistUser(string gmail, string phone)
         {
             if (db.Users.SingleOrDefault(n => n.Gmail == gmail && n.Phone == phone) == null)

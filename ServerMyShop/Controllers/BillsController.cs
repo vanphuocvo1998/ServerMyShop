@@ -20,6 +20,7 @@ namespace ServerMyShop.Controllers
         [HttpPost("AddBill")]
         public Bills AddBill([FromForm]Bills bill)
         {
+            // kiểm tra mail đã có chua, chua có thì tạo và luu vao db
             var user = _UsersRepository.GetByGmail(bill.Gmail);
             if (user != null)
                 bill.UserId = user.Id;
