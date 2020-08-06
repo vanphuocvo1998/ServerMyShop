@@ -26,6 +26,15 @@ namespace ServerMyShop
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            services.AddAuthentication()
+                .AddFacebook(facebookOptions =>
+                {
+                    facebookOptions.AppId = Configuration["Authentication:Facebook:AppId"];
+                    facebookOptions.AppSecret = Configuration["Authentication:Facebook:AppSecret"];
+                }).AddJwtBearer();
+
+
             services.AddCors(options =>
             {
                 options.AddPolicy("CorsApi",
@@ -58,7 +67,7 @@ namespace ServerMyShop
             app.UseSession();
             app.UseCors("CorsApi");
             app.UseAuthorization();
-
+            app.UseAuthentication();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

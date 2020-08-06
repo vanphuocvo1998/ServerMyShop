@@ -16,6 +16,12 @@ namespace ServerMyShop.Controllers
     {
         UsersRepository _UsersRepository = new UsersRepository();
       
+        [HttpGet("LoginFacebook")]
+        public IActionResult LoginFacebook()
+        {
+            //return RedirectToAction("GetAll", "Books");
+            return Content("Login sucess");
+        }
         [HttpPost("Login")]
         public Users Login([FromForm]Users user)
         {
