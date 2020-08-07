@@ -19,7 +19,6 @@ namespace ServerMyShop.Controllers
         [HttpGet("LoginFacebook")]
         public IActionResult LoginFacebook()
         {
-            //return RedirectToAction("GetAll", "Books");
             return Content("Login sucess");
         }
         [HttpPost("Login")]

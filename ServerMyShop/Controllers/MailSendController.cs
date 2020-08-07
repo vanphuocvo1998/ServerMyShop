@@ -20,13 +20,13 @@ namespace ServerMyShop.Controllers
             try
             {
                 // Credentials
-                var credentials = new System.Net.NetworkCredential("16110426@student.hcmute.edu.vn", "vovanphuoc");
+                var credentials = new System.Net.NetworkCredential("16110426@student.hcmute.edu.vn", "vovanphuoc1998");
 
                 // Mail message
                 var mail = new System.Net.Mail.MailMessage()
                 {
                     From = new MailAddress("16110426@student.hcmute.edu.vn"),
-                    Subject = "Email Sender App",
+                    Subject = "PhuocVo Book Shop",
                     Body = Message
                 };
 
