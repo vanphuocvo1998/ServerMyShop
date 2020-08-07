@@ -32,5 +32,25 @@ namespace ServerMyShop.Controllers
         {
             return _BooksRepository.GetById(id);
         }
+
+        [HttpPost("Add")]
+        public Books Add([FromForm]Books item)
+        {
+            _BooksRepository.AddBook(item);
+            return item;
+        }
+
+        [HttpPut("Edit/{id:int}")]
+        public Books Edit(int ?id, [FromForm]Books item)
+        {
+            _BooksRepository.EditBook(id, item);
+            return item;
+        }
+
+        [HttpDelete("Delete/{id:int}")]
+        public void Delete(int? id)
+        {
+            _BooksRepository.DeleteBook(id);
+        }
     }
 }

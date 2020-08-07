@@ -22,5 +22,12 @@ namespace ServerMyShop.Controllers
         {
             return _PublishersRepository.GetAll();
         }
+
+        [HttpPost("Add")]
+        public Publishers Add([FromForm]Publishers Publisher)
+        {
+            _PublishersRepository.Add(Publisher);
+            return Publisher;
+        }
     }
 }

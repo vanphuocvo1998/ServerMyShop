@@ -21,5 +21,12 @@ namespace ServerMyShop.Controllers
         {
             return _BooktypesRepository.GetAll();
         }
+
+        [HttpPost("Add")]
+        public Booktypes Add([FromForm]Booktypes type)
+        {
+            _BooktypesRepository.AddType(type);
+            return type;
+        }
     }
 }

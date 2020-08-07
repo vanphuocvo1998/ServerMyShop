@@ -14,6 +14,16 @@ namespace ServerMyShop.Services
     {
         BookShopContext db = new BookShopContext();
 
+        public void Add(Authors item)
+        {
+            var author = db.Authors.SingleOrDefault(n => n.Name == item.Name);
+            if(author==null)
+            {
+                db.Authors.Add(item);
+                db.SaveChanges();
+            }
+        }
+
         public IEnumerable<Authors> GetAll()
         {
             return db.Authors.ToList();

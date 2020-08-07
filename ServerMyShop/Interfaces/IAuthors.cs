@@ -9,5 +9,6 @@ namespace ServerMyShop.Interfaces
     public interface IAuthors
     {
         IEnumerable<Authors> GetAll();
+        void Add(Authors item);
     }
 }

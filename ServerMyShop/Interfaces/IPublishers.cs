@@ -9,5 +9,6 @@ namespace ServerMyShop.Interfaces
     public interface IPublishers
     {
         IEnumerable<Publishers> GetAll();
+        void Add(Publishers item);
     }
 }

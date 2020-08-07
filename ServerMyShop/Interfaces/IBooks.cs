@@ -11,5 +11,8 @@ namespace ServerMyShop.Interfaces
         IEnumerable<Books> GetByType(int? idtype);
 
         Books GetById(int? id);
+        void AddBook(Books book);
+        void EditBook(int? id,Books book);
+        void DeleteBook(int? id);
     }
 }

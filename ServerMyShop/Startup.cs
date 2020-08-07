@@ -38,7 +38,7 @@ namespace ServerMyShop
             services.AddCors(options =>
             {
                 options.AddPolicy("CorsApi",
-                    builder => builder.WithOrigins("http://localhost:44387", "http://localhost:3000")
+                    builder => builder.WithOrigins("http://localhost:44387", "http://localhost:3000", "http://localhost:4000")
                 .AllowAnyHeader()
                 .AllowAnyMethod());
             });

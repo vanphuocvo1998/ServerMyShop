@@ -21,5 +21,12 @@ namespace ServerMyShop.Controllers
         {
             return _ProvidersRepository.GetAll();
         }
+
+        [HttpPost("Add")]
+        public Providers Add([FromForm]Providers Provider)
+        {
+            _ProvidersRepository.Add(Provider);
+            return Provider;
+        }
     }
 }

@@ -7,27 +7,20 @@ using Microsoft.AspNetCore.Mvc;
 using ServerMyShop.Models;
 using ServerMyShop.Services;
 
-
 namespace ServerMyShop.Controllers
 {
     [Microsoft.AspNetCore.Cors.EnableCors("CorsApi")]
     [Route("api/[controller]")]
     [ApiController]
-    public class AuthorsController : ControllerBase
+    public class ComposedController : ControllerBase
     {
-        AuthorsRepository _AuthorsRepository = new AuthorsRepository();
-
-        [HttpGet("GetAll")]
-        public IEnumerable<Authors> GetAll()
-        {
-            return _AuthorsRepository.GetAll();
-        }
-
+        ComposedRepository _ComposedRepository = new ComposedRepository();
+        
         [HttpPost("Add")]
-        public Authors Add([FromForm]Authors author)
+        public Composed Add([FromForm]Composed composed)
         {
-            _AuthorsRepository.Add(author);
-            return author;
+            _ComposedRepository.Add(composed);
+            return composed;
         }
     }
 }

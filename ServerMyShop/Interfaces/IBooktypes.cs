@@ -8,6 +8,6 @@ namespace ServerMyShop.Interfaces
     public interface IBooktypes
     {
         IEnumerable<Booktypes> GetAll();
- 
+        void AddType(Booktypes item);
     }
 }

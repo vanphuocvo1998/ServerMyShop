@@ -8,5 +8,6 @@ namespace ServerMyShop.Interfaces
     public interface IProviders
     {
         IEnumerable<Providers> GetAll();
+        void Add(Providers item);
     }
 }
