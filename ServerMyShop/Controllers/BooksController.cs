@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using System.IO;
 using Microsoft.AspNetCore.Mvc;
 using ServerMyShop.Models;
 using ServerMyShop.Services;
@@ -43,6 +44,7 @@ namespace ServerMyShop.Controllers
         [HttpPut("Edit/{id:int}")]
         public Books Edit(int ?id, [FromForm]Books item)
         {
+         
             _BooksRepository.EditBook(id, item);
             return item;
         }

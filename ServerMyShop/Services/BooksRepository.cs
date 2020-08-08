@@ -21,8 +21,15 @@ namespace ServerMyShop.Services
         public void DeleteBook(int? id)
         {
             var book = db.Books.SingleOrDefault(n => n.Id == id);
-            db.Books.Remove(book);
-            db.SaveChanges();
+            if(book!=null)
+            {
+                book.Deleted = "true";
+                book.Status = "false";
+                db.Books.Update(book);
+                db.SaveChanges();
+            }
+            // db.Books.Remove(book);
+            
         }
 
         public void EditBook(int? id, Books book)
@@ -32,10 +39,7 @@ namespace ServerMyShop.Services
             {
                 bookEdit.NameBook = book.NameBook;
                 bookEdit.Price = book.Price;
-                bookEdit.Provider = book.Provider;
                 bookEdit.Img = book.Img;
-                bookEdit.Publisher = book.Publisher;
-                bookEdit.Booktype = book.Booktype;
                 bookEdit.Content = book.Content;
                 bookEdit.Deleted = book.Deleted;
                 bookEdit.Quantity = book.Quantity;
