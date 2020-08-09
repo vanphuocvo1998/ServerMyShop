@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -32,14 +33,26 @@ namespace ServerMyShop.Services
             
         }
 
-        public void EditBook(int? id, Books book)
+        public void EditBook(int? id, BooksViewmodel book)
         {
             var bookEdit = db.Books.SingleOrDefault(n => n.Id == id);
-            if(bookEdit!= null)
+            var image = book.ProfileImage;
+            // Saving Image on Server
+            if (image.Length > 0)
             {
+                var filePath = Path.Combine("C:\\Users\\vanph\\Desktop\\BookShop\\adminmyshop\\public\\images", image.FileName);
+
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    image.CopyTo(fileStream);
+                }
+            }
+            if (bookEdit!= null)
+            {
+                
                 bookEdit.NameBook = book.NameBook;
                 bookEdit.Price = book.Price;
-                bookEdit.Img = book.Img;
+                bookEdit.Img = image.FileName;
                 bookEdit.Content = book.Content;
                 bookEdit.Deleted = book.Deleted;
                 bookEdit.Quantity = book.Quantity;

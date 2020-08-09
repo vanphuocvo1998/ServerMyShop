@@ -12,7 +12,7 @@ namespace ServerMyShop.Interfaces
 
         Books GetById(int? id);
         void AddBook(Books book);
-        void EditBook(int? id,Books book);
+        void EditBook(int? id,BooksViewmodel book);
         void DeleteBook(int? id);
     }
 }
