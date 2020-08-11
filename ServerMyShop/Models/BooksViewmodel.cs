@@ -16,6 +16,19 @@ namespace ServerMyShop.Models
         public int? Sale { get; set; }
         public string Status { get; set; }
         public string Deleted { get; set; }
-        public IFormFile ProfileImage { get; set; }
+        public IFormFile Img { get; set; }
+
+        public BooksViewmodel(int id, string name, string content, int price, int quantity, int sale, string status, string deleted,IFormFile img)
+        {
+            this.Id = id;
+            this.NameBook = name;
+            this.Content = content;
+            this.Price = price;
+            this.Quantity = quantity;
+            this.Sale = sale;
+            this.Status = status;
+            this.Deleted = deleted;
+            this.Img = img;
+        }
     }
 }

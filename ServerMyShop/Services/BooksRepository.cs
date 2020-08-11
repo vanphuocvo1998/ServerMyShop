@@ -33,26 +33,16 @@ namespace ServerMyShop.Services
             
         }
 
-        public void EditBook(int? id, BooksViewmodel book)
+        public void EditBook(int? id, Books book)
         {
             var bookEdit = db.Books.SingleOrDefault(n => n.Id == id);
-            var image = book.ProfileImage;
-            // Saving Image on Server
-            if (image.Length > 0)
-            {
-                var filePath = Path.Combine("C:\\Users\\vanph\\Desktop\\BookShop\\adminmyshop\\public\\images", image.FileName);
-
-                using (var fileStream = new FileStream(filePath, FileMode.Create))
-                {
-                    image.CopyTo(fileStream);
-                }
-            }
+           
             if (bookEdit!= null)
             {
                 
                 bookEdit.NameBook = book.NameBook;
                 bookEdit.Price = book.Price;
-                bookEdit.Img = image.FileName;
+                bookEdit.Img = book.Img;
                 bookEdit.Content = book.Content;
                 bookEdit.Deleted = book.Deleted;
                 bookEdit.Quantity = book.Quantity;

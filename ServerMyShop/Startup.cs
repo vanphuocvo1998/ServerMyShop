@@ -63,22 +63,25 @@ namespace ServerMyShop
             {
                 app.UseDeveloperExceptionPage();
             }
+            else
+            {
+                app.UseHsts();
+            }
 
             app.UseHttpsRedirection();
 
             app.UseRouting();
             app.UseSession();
             app.UseCors("CorsApi");
-            app.UseStaticFiles(new StaticFileOptions()
-            {
-                FileProvider = new PhysicalFileProvider(Path.Combine("C:\\Users\\vanph\\Desktop\\BookShop\\adminmyshop\\public\\images")),
-                RequestPath = new PathString("/images")
-            });
+            app.UseStaticFiles();
             app.UseAuthorization();
             app.UseAuthentication();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+            });
+            app.Run(async(context)=> {
+                await context.Response.WriteAsync("Could not file any thing");
             });
         }
     }

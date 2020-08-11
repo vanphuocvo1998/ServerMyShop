@@ -23,7 +23,23 @@ namespace ServerMyShop.Models
         public string Status { get; set; }
         public string Deleted { get; set; }
         public string Img { get; set; }
-       
+        public Books(int id, string name, string content, int price, int quantity, int sale, string status, string deleted, string img)
+        {
+            this.Id = id;
+            this.NameBook = name;
+            this.Content = content;
+            this.Price = price;
+            this.Quantity = quantity;
+            this.Sale = sale;
+            this.Status = status;
+            this.Deleted = deleted;
+            this.Img = img;
+        }
+
+        public Books(string img)
+        {
+            this.Img = img;
+        }
 
         public virtual Booktypes BooktypeNavigation { get; set; }
         public virtual Providers ProviderNavigation { get; set; }

@@ -7,6 +7,7 @@ using ServerMyShop.Models;
 using ServerMyShop.Services;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.AspNetCore.Hosting;
+using System.Threading.Tasks;
 
 namespace ServerMyShop.Controllers
 {
@@ -16,7 +17,46 @@ namespace ServerMyShop.Controllers
     public class BooksController : ControllerBase
     {
         BooksRepository _BooksRepository = new BooksRepository();
-        IWebHostEnvironment IWebHostEnvironment;
+
+        public static IWebHostEnvironment _environment;
+        public BooksController(IWebHostEnvironment environment)
+        {
+            _environment = environment;
+        }
+
+        public class BookImage
+        {
+            public IFormFile Img { get; set; }
+        }
+
+        [HttpPost("UploadImg")]
+        public string UploadImg([FromForm]BookImage model)
+        {
+            try
+            {
+                if (model.Img.Length > 0)
+                {
+                    if (!Directory.Exists(_environment.WebRootPath + "\\Images\\"))
+                    {
+                        Directory.CreateDirectory(_environment.WebRootPath + "\\Images\\");
+                    }
+                    using (FileStream fs = System.IO.File.Create(_environment.WebRootPath + "\\Images\\" + model.Img.FileName))
+                    {
+                        model.Img.CopyTo(fs);
+                        fs.Flush();
+                        return model.Img.FileName;
+                    }
+                }
+                else
+                    return "Upload failed";
+            }
+            catch(Exception e)
+            {
+                return e.Message.ToString();
+            }
+            
+        }
+
         [HttpGet("GetAll")]
         public IEnumerable<Books> GetAll()
         {
@@ -43,10 +83,11 @@ namespace ServerMyShop.Controllers
         }
 
         [HttpPut("Edit/{id:int}")]
-        public Books Edit(int ?id, [FromForm]BooksViewmodel item)
+        public Books Edit(int ?id, [FromForm]BookImage img, [FromForm]Books item)
         {
-            //string imgname = UploadedFile(item);
-            _BooksRepository.EditBook(id, item);
+            string nameImg = UploadImg(img);
+            var book = new Books(item.Id, item.NameBook, item.Content, Convert.ToInt32(item.Price), Convert.ToInt32(item.Quantity), Convert.ToInt32(item.Sale), item.Status, item.Deleted, nameImg) ;
+            _BooksRepository.EditBook(id, book);
             return _BooksRepository.GetById(id);
         }
 
@@ -55,54 +96,5 @@ namespace ServerMyShop.Controllers
         {
             _BooksRepository.DeleteBook(id);
         }
-
-        //public string uploadedfile(booksviewmodel model)
-        //{
-        //    string uniquefilename = null;
-
-        //    if (model.profileimage != null)
-        //    {
-        //        string uploadsfolder = path.combine("c:\\users\\vanph\\desktop\\bookshop\\clientmyshop\\public\\images", "c:\\users\\vanph\\desktop\\bookshop\\adminmyshop\\public\\images");
-        //        uniquefilename = guid.newguid().tostring() + "_" + model.profileimage.filename;
-        //        string filepath = path.combine(uploadsfolder, uniquefilename);
-        //        using (var filestream = new filestream(filepath, filemode.create))
-        //        {
-        //            model.profileimage.copyto(filestream);
-        //        }
-        //    }
-        //    return uniquefilename;
-        //}
-        //[HttpPost]
-        //public IActionResult Index(IFormFile files)
-        //{
-        //    if (files != null)
-        //    {
-        //        if (files.Length > 0)
-        //        {
-        //            //Getting FileName
-        //            var fileName = Path.GetFileName(files.FileName);
-
-        //            //Assigning Unique Filename (Guid)
-        //            var myUniqueFileName = Convert.ToString(Guid.NewGuid());
-
-        //            //Getting file Extension
-        //            var fileExtension = Path.GetExtension(fileName);
-
-        //            // concatenating  FileName + FileExtension
-        //            var newFileName = String.Concat(myUniqueFileName, fileExtension);
-
-        //            // Combines two strings into a path.
-        //            var filepath =
-        //    new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Images")).Root + $@"\{newFileName}";
-
-        //            using (FileStream fs = System.IO.File.Create(filepath))
-        //            {
-        //                files.CopyTo(fs);
-        //                fs.Flush();
-        //            }
-        //        }
-        //    }
-        //    return Ok("Success");
-        //}
     }
 }
