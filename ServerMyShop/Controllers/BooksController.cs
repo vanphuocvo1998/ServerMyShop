@@ -81,7 +81,7 @@ namespace ServerMyShop.Controllers
             _BooksRepository.AddBook(item);
             return item;
         }
-
+        
         [HttpPut("Edit/{id:int}")]
         public Books Edit(int ?id, [FromForm]BookImage img, [FromForm]Books item)
         {
