@@ -15,6 +15,7 @@ namespace ServerMyShop.Interfaces
 
         Users GetByPhone(string phone);
 
+        Users GetLoginUser(Users login);
         bool CheckExistUser(string gmail, string phone);
         
     }

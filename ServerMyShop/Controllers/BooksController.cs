@@ -8,6 +8,7 @@ using ServerMyShop.Services;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.AspNetCore.Hosting;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ServerMyShop.Controllers
 {
@@ -29,7 +30,8 @@ namespace ServerMyShop.Controllers
             public IFormFile Img { get; set; }
         }
 
-        [HttpPost("UploadImg")]
+        [Authorize(Roles = "1")]
+        [HttpPost("UploadImg"), DisableRequestSizeLimit]
         public string UploadImg([FromForm]BookImage model)
         {
             try
@@ -75,13 +77,15 @@ namespace ServerMyShop.Controllers
             return _BooksRepository.GetById(id);
         }
 
+        [Authorize(Roles = "1")]
         [HttpPost("Add")]
         public Books Add([FromForm]Books item)
         {
             _BooksRepository.AddBook(item);
             return item;
         }
-        
+
+        [Authorize(Roles = "1")]
         [HttpPut("Edit/{id:int}")]
         public Books Edit(int ?id, [FromForm]BookImage img, [FromForm]Books item)
         {
@@ -91,6 +95,7 @@ namespace ServerMyShop.Controllers
             return _BooksRepository.GetById(id);
         }
 
+        [Authorize(Roles = "1")]
         [HttpDelete("Delete/{id:int}")]
         public void Delete(int? id)
         {

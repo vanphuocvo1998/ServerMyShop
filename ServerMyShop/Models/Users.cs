@@ -16,6 +16,11 @@ namespace ServerMyShop.Models
         public string Address { get; set; }
         public string Phone { get; set; }
         public int? Usertype { get; set; }
+        public Users(string gmail, string password)
+        {
+            this.Gmail = gmail;
+            this.Password = password;
+        }
 
         public virtual Usertypes UsertypeNavigation { get; set; }
         public virtual ICollection<Bills> Bills { get; set; }
